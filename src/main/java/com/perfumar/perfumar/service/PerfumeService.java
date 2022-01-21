@@ -8,14 +8,10 @@ public interface PerfumeService {
 
     List<Perfume> getAllPerfumes();
 
-    int insertPerfume(UUID id, Perfume perfume);
+    int insertPerfume(Perfume perfume);
 
-    default int insertPerfume(Perfume perfume){
-        UUID id = UUID.randomUUID();
-        return insertPerfume(id, perfume);
-    }
 
-    Optional<Perfume> selectPerfumeById(UUID id);
+    Optional<Perfume> selectPerfumeById(int id);
 
-    boolean isPerfumeInDB(UUID id);
+    boolean isPerfumeInDB(int id);
 }

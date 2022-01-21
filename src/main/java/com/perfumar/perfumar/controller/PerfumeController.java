@@ -1,7 +1,6 @@
 package com.perfumar.perfumar.controller;
 
 import com.perfumar.perfumar.handler.HandleExceptionInRest;
-import com.perfumar.perfumar.handler.ThrowErrorMessage;
 import com.perfumar.perfumar.model.Perfume;
 import com.perfumar.perfumar.service.PerfumeService;
 import org.apache.logging.log4j.LogManager;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("/perfumar")
+@RequestMapping("/products")
 public class PerfumeController {
 
     Logger logger = LogManager.getLogger(PerfumeController.class);
@@ -26,20 +24,20 @@ public class PerfumeController {
         this.perfumeService = perfumeService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public List<Perfume> getAllPerfumes(){
         logger.info("Get todos los perfumes de la DB");
         return perfumeService.getAllPerfumes();
     }
 
-    @PostMapping("/postPerfume")
+    @PostMapping
     public void addPerfume(@RequestBody Perfume perfume){
         logger.info("Post un perfume en la DB");
         perfumeService.insertPerfume(perfume);
     }
 
     @GetMapping("/{id}")
-    public Optional<Perfume> getPerfumeById(@PathVariable("id") UUID id) throws HandleExceptionInRest {
+    public Optional<Perfume> getPerfumeById(@PathVariable("id") int id) throws HandleExceptionInRest {
         if (!perfumeService.isPerfumeInDB(id)) {
             logger.error("No se encuestra el perfume con el id seleccionado");
             throw new HandleExceptionInRest("No se encuentra el id del perfume en DB");

@@ -1,23 +1,30 @@
 package com.perfumar.perfumar.model;
-import java.util.UUID;
 
 public class Perfume {
 
-    private final UUID id;
+    private final int id;
     private final String name;
+    private final String brand;
 
     //contructor
-    public Perfume(UUID id, String name){
+    public Perfume(int id, String name, String brand){
         this.id = id;
         this.name = name;
+        this.brand = brand;
     }
 
-    public UUID getId(){
+    public int getId(){
         return id;
     }
     public String getName(){
         return name;
     }
+
+    public String getBrand(){
+        return brand;
+    }
+
+
 
 
 

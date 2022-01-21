@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PerfumeServiceImpl implements PerfumeService{
@@ -17,6 +17,7 @@ public class PerfumeServiceImpl implements PerfumeService{
     Logger logger = LogManager.getLogger(PerfumeController.class);
 
     private static List<Perfume> DB = new ArrayList<>();
+    int count;
 
     @Override
     public List<Perfume> getAllPerfumes() {
@@ -24,22 +25,24 @@ public class PerfumeServiceImpl implements PerfumeService{
     }
 
     @Override
-    public int insertPerfume(UUID id, Perfume perfume) {
-        DB.add(new Perfume(id, perfume.getName()));
+    public int insertPerfume(Perfume perfume) {
+        int id = count + 1;
+        count = id;
+        DB.add(new Perfume(id, perfume.getName(), perfume.getBrand()));
         return 1;
     }
 
     @Override
-    public Optional<Perfume> selectPerfumeById(UUID id) {
-        return DB.stream().filter(perfume -> perfume.getId().equals(id)).findFirst();
+    public Optional<Perfume> selectPerfumeById(int id) {
+        return DB.stream().filter(perfume -> Objects.equals(perfume.getId(), id)).findFirst();
     }
 
     @Override
-    public boolean isPerfumeInDB(UUID id) {
+    public boolean isPerfumeInDB(int id) {
         int i = 0;
         logger.info(DB.size());
         while(i < DB.size() ){
-            if(DB.get(i).getId().equals(id)){
+            if(Objects.equals(DB.get(i).getId(), id)){
                 logger.error("ENtra");
                 return true;
             }
