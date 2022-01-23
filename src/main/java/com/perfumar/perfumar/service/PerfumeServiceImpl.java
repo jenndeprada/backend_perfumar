@@ -2,8 +2,11 @@ package com.perfumar.perfumar.service;
 
 import com.perfumar.perfumar.controller.PerfumeController;
 import com.perfumar.perfumar.model.Perfume;
+import com.perfumar.perfumar.utils.ConfigType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,4 +53,5 @@ public class PerfumeServiceImpl implements PerfumeService{
         }
         return false;
     }
+
 }

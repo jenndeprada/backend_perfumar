@@ -1,7 +1,9 @@
 package com.perfumar.perfumar.controller;
 
+import com.perfumar.perfumar.domain.PerfumeConfig;
 import com.perfumar.perfumar.handler.HandleExceptionInRest;
 import com.perfumar.perfumar.model.Perfume;
+import com.perfumar.perfumar.service.ConfigService;
 import com.perfumar.perfumar.service.PerfumeService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +46,17 @@ public class PerfumeController {
         } else {
             return perfumeService.selectPerfumeById(id);
         }
-
     }
+
+    @Autowired
+    ConfigService configService;
+
+    @PutMapping("/{id}") //ruta para aplicar observer actualizando los atributos de un perfume
+    PerfumeConfig updateConfig(@RequestBody PerfumeConfig perfumeConfig){
+        logger.info("Put recibido para actualizar perfume");
+        configService.updatePerfumeConfig(perfumeConfig.getName());
+        return perfumeConfig;
+    }
+
+
 }
