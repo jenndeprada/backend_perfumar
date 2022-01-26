@@ -44,6 +44,18 @@ public class PerfumeController {
         } else {
             return perfumeService.selectPerfumeById(id);
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public void deletePerfumeById(@PathVariable("id") int id){
+        perfumeService.deletePerfumeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updatePerfume(@PathVariable("id") int id, @RequestBody Perfume perfumeToUpdate) throws HandleExceptionInRest{
+        if(perfumeToUpdate.getName() == ""){
+            throw new HandleExceptionInRest("el nombre no debe ser vacio");
+        }
+        perfumeService.updatePerfumeById(id, perfumeToUpdate);
     }
 }
